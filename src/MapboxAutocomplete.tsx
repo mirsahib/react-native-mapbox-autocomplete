@@ -3,12 +3,13 @@ import { StyleSheet, View, FlatList } from 'react-native'
 import { SearchBar } from 'react-native-elements';
 import { DATA } from './data';
 import Item from './Item';
-import { DataType } from './type';
+import { DataType,MapBoxProps } from './type';
 
 
-const MapboxAutocomplete = () => {
+const MapboxAutocomplete = ({apiKey,country}:MapBoxProps) => {
     const [searchValue, setSearchValue] = useState<string>("")
     const [data,setData]=useState<DataType[]>([])
+    //console.log(apiKey)
 
     const searchFunction = (text: string) => {
         const searchItem = DATA.filter((item:DataType)=>{

@@ -1,10 +1,13 @@
 import MapboxAutocomplete from './src/MapboxAutocomplete';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, View } from 'react-native';
+import {MAPBOX_API_KEY} from './apikey'
+
+
+
 export default function App() {
   return (
     <SafeAreaView>
-      <MapboxAutocomplete/>
+      <MapboxAutocomplete apiKey={MAPBOX_API_KEY} country='us'/>
     </SafeAreaView>
   );
 }
