@@ -7,13 +7,13 @@ import 'react-native-vector-icons'
 
 
 
-const MapboxAutocomplete = ({ apiKey, country, getPlaceName }: MapBoxProps) => {
+const MapboxAutocomplete = ({ apiKey, country,placeholder,minLength,autoFillOnNotFound,styles, onPress }: MapBoxProps) => {
     const [searchValue, setSearchValue] = useState<string>("")
     const [data, setData] = useState<DataType[]>([])
     //console.log(apiKey)
     const renderItem = ({ item }: { item: DataType }) => {
         return (
-            <TouchableOpacity onPress={getPlaceName ? () => getPlaceName(item.place_name) : () => { throw new Error('function not defined') }}>
+            <TouchableOpacity onPress={onPress ? () => onPress(item.place_name) : () => { throw new Error('function not defined') }}>
                 <Item data={item} />
             </TouchableOpacity>
         )
@@ -21,13 +21,17 @@ const MapboxAutocomplete = ({ apiKey, country, getPlaceName }: MapBoxProps) => {
 
     const searchFunction = async (text: string) => {
         setSearchValue(text)
+        let defaultLength = 1
         const header = { 'Content-Type': 'application/json' };
         let path = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchValue}.json?access_token=${apiKey}`
 
         if (country) {
             path = `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchValue}.json?access_token=${apiKey}&country=${country}`
         }
-        if (searchValue.length > 1) {
+        if(minLength){
+            defaultLength = minLength
+        }
+        if (searchValue.length > defaultLength) {
             try {
                 const response = await fetch(path, {
                     headers: header
@@ -47,14 +51,15 @@ const MapboxAutocomplete = ({ apiKey, country, getPlaceName }: MapBoxProps) => {
     return (
         <View>
             <SearchBar
-                placeholder="Search"
+                placeholder={placeholder}
                 /* @ts-ignore */
                 onChangeText={(text: string) => searchFunction(text)}
                 value={searchValue}
                 lightTheme
                 searchIcon = {{type: 'ionicon', color: '#86939e', name: 'location' }}
+                style = {styles?{...styles}:{}}
             />
-            {searchValue?<FlatList data={data}
+            {searchValue?<FlatList data={data} style = {styles?{...styles}:{}}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id} />:<Text></Text>}
         </View>

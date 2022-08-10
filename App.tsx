@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     <SafeAreaView>
-      <MapboxAutocomplete apiKey={MAPBOX_API_KEY} country='BD' getPlaceName={getPlaceName}/>
+      <MapboxAutocomplete apiKey={MAPBOX_API_KEY} country='BD' onPress={getPlaceName}/>
     </SafeAreaView>
   );
 }
