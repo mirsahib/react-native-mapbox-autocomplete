@@ -6,7 +6,7 @@ import { DataType } from './type'
 const Item = ({ data }: { data: DataType }) => {
     return (
         <View style={tw`bg-slate-300 p-2 m-2 rounded-lg`}>
-            <Text style={tw`text-slate-500`}>{data.title}</Text>
+            <Text style={tw`text-slate-500`}>{data.place_name}</Text>
         </View>
     )
 }

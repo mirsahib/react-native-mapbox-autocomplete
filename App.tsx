@@ -5,9 +5,14 @@ import {MAPBOX_API_KEY} from './apikey'
 
 
 export default function App() {
+
+  const getPlaceName = (place_name: string)=>{
+    console.log(place_name)
+  }
+
   return (
     <SafeAreaView>
-      <MapboxAutocomplete apiKey={MAPBOX_API_KEY} country='us'/>
+      <MapboxAutocomplete apiKey={MAPBOX_API_KEY} country='BD' getPlaceName={getPlaceName}/>
     </SafeAreaView>
   );
 }
